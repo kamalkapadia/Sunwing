@@ -1,0 +1,51 @@
+﻿@using Sunwing.Web.Models
+@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>@ViewBag.Title</h2>
+<div id="dvContactManager" class="ContentTable flex-container" style="margin-left: 9px; width: 99%;">
+    <table id="tblContactManager" width="100%">
+        <tr>
+            <td colspan="4">
+                @*<div id="dvContactManagerGridError" class="RequiredField" style="width:20%;margin:7px;">
+                        No contact data available.
+                    </div>*@
+                <p></p>
+                <div id="dvManageContact" class="" style="margin:9px;">
+                    @(Html.Kendo().Grid<ContactViewModel>()
+                                .Name("grdManageContact")
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(e => e.FirstName).Width("150px");
+                                    columns.Bound(e => e.LastName).Width("150px");
+                                    columns.Bound(e => e.Birthday).Width("150px");
+                                    columns.Bound(e => e.Email).Width("150px");
+                                    columns.Bound(e => e.Telephone).Width("150px");
+                                    columns.Command(e => { e.Edit(); e.Destroy(); }).Width("100px");
+                                })
+                                .ToolBar(t =>
+                                {
+                                    t.Create();
+                                })
+                                .Groupable()
+                                .Sortable()
+                                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                                .HtmlAttributes(new { style = "font: 14px/16px 'segoe ui',arial,sans-serif; text-align:left; vertical-align:middle;height:380px;" })
+                                .Scrollable()
+                                .DataSource(dataSource => dataSource
+                                    .Ajax()
+                                    //.ServerOperation(false)
+                                    .Model(model => model.Id(x => x.Id))
+                                    .Create(update => update.Action("Post", "ContactManager"))
+                                    .Read(read => read.Action("Get", "ContactManager"))
+                                    .Update(update => update.Action("Put", "ContactManager"))
+                                    .Destroy(destroy => destroy.Action("Delete", "ContactManager"))
+                                )
+                    )
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</div>

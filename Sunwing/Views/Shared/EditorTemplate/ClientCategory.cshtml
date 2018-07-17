@@ -1,0 +1,7 @@
+﻿@(Html.Kendo().DropDownListFor(m => m)
+        .DataValueField("1")
+        .DataTextField("C")
+        .DataValueField("2")
+        .DataTextField("P")
+        .BindTo((System.Collections.IEnumerable)ViewData["CustomerType"])
+)
